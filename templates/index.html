@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JeevanDhara - Log Symptom</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <header>
+            <h1>JeevanDhara</h1>
+            <h2>Log New Patient Symptom</h2>
+        </header>
+        <main>
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patient">Patient Name</label>
+                        <input type="text" id="patient" name="patient" placeholder="e.g., John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="village">Select Village</label>
+                        <select id="village" name="village" required>
+                            <option value="" disabled selected>Select a Village</option>
+                            <option value="V001">Village A (V001)</option>
+                            <option value="V002">Village B (V002)</option>
+                            <option value="V003">Village C (V003)</option>
+                            <option value="V004">Village D (V004)</option>
+                            <option value="V005">Village E (V005)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="age">Patient Age</label>
+                        <input type="number" id="age" name="age" placeholder="e.g., 45" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="disease">Suspected Disease</label>
+                    <select id="disease" name="disease">
+                        <option value="" disabled selected>Select disease</option>
+                        <option value="Cholera">Cholera</option>
+                        <option value="Typhoid">Typhoid</option>
+                        <option value="Hepatitis A">Hepatitis A</option>
+                        <option value="Giardiasis">Giardiasis</option>
+                        <option value="E. coli Infection">E. coli Infection</option>
+                    </select>
+                </div>
+                <div class="form-group full-width">
+                    <label>Symptoms</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="symptoms" value="diarrhea"> Diarrhea</label>
+                        <label><input type="checkbox" name="symptoms" value="vomiting"> Vomiting</label>
+                        <label><input type="checkbox" name="symptoms" value="fever"> Fever</label>
+                        <label><input type="checkbox" name="symptoms" value="headache"> Headache</label>
+                        <label><input type="checkbox" name="symptoms" value="fatigue"> Fatigue</label>
+                        <label><input type="checkbox" name="symptoms" value="nausea"> Nausea</label>
+                        <label><input type="checkbox" name="symptoms" value="abdominal_cramps"> Abdominal Cramps</label>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label for="notes">Additional Notes</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="e.g., recent travel, water source..."></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label for="attachment">Attach File (Optional)</label>
+                    <input type="file" id="attachment" name="attachment">
+                </div>
+                <button type="submit">Submit Report</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

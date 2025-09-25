@@ -1,0 +1,10 @@
+# Python temporary files
+__pycache__/
+*.pyc
+
+# Virtual Environment
+venv/
+.env
+
+# Instance folder (contains database)
+instance/

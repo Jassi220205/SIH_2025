@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JeevanDhara Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>JeevanDhara Dashboard</h1>
+            <div class="header-controls">
+                <a href="/" class="button">Submit a New Report</a>
+                <form method="GET" action="/dashboard" class="filter-form">
+                    <select name="village" onchange="this.form.submit()">
+                        <option value="all">-- Filter by Village --</option>
+                        {% for village in villages %}
+                            <option value="{{ village }}" {% if village == selected_village %}selected{% endif %}>
+                                {{ village }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        </header>
+
+        <div class="stats-container">
+            <div class="stat-card"><h3>Total Reports</h3><p>{{ total_reports }}</p></div>
+            {% for disease, count in disease_counts.items() %}
+            <div class="stat-card"><h3>{{ disease }} Cases</h3><p>{{ count }}</p></div>
+            {% endfor %}
+        </div>
+        
+        <div class="visuals-container">
+            <div class="map-container">
+                <h2>Village Hotspots</h2>
+                <div id="hotspotMap"></div>
+            </div>
+            <div class="chart-container">
+                <h2>Disease Distribution</h2>
+                <canvas id="diseaseChart"></canvas>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h2>All Submitted Reports</h2>
+            <table>
+                <thead>
+                    <tr><th>ID</th><th>Patient Name</th><th>Village</th><th>Age</th><th>Gender</th><th>Symptoms</th><th>Disease</th></tr>
+                </thead>
+                <tbody>
+                    {% for report in reports %}
+                    <tr>
+                        <td>{{ report.id }}</td>
+                        <td>{{ report.patient_name }}</td>
+                        <td>{{ report.village }}</td>
+                        <td>{{ report.age }}</td>
+                        <td>{{ report.gender }}</td>
+                        <td>{{ report.symptoms }}</td>
+                        <td>{{ report.suspected_disease }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="7">No reports found for this selection.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Chart.js script
+        const diseaseData = {{ disease_counts | tojson }};
+        const labels = Object.keys(diseaseData);
+        const data = Object.values(diseaseData);
+        if (document.getElementById('diseaseChart')) {
+            const ctx = document.getElementById('diseaseChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: { labels: labels, datasets: [{
+                    data: data,
+                    backgroundColor: ['#d9444490', '#1c91d990', '#e48f2090', '#0e610890', '#490a6d90', '#b0002090'],
+                    borderColor: '#2e2e2e', borderWidth: 2
+                }]},
+                options: { responsive: true, plugins: { legend: { position: 'top', labels: { color: '#e0e0e0'} }, title: { display: false } } }
+            });
+        }
+
+        // Leaflet.js Map Script
+        if (document.getElementById('hotspotMap')) {
+            const map = L.map('hotspotMap').setView([17.8, 82.8], 9);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap &copy; CARTO',
+            }).addTo(map);
+
+            const hotspotData = {{ hotspot_data | tojson }};
+            hotspotData.forEach(village => {
+                const radius = village.cases * 100; // Adjust multiplier
+                L.circle(village.coords, {
+                    color: '#d94444', fillColor: '#d94444', fillOpacity: 0.6, radius: radius
+                }).addTo(map).bindPopup(`<b>${village.village_name}</b><br>${village.cases} cases reported.`);
+            });
+        }
+    </script>
+</body>
+</html>

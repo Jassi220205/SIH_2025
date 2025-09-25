@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Submitted</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="result-container">
+        {% if prediction %}
+            <div class="prediction-box {{ 'high-risk' if 'High' in prediction else 'low-risk' }}">
+                <h3>Outbreak Risk Prediction</h3>
+                <p>{{ prediction }}</p>
+            </div>
+        {% endif %}
+
+        <h2>Submitted Report Details</h2>
+        <ul>
+            <li><strong>Patient:</strong><span>{{ patient or 'Not Provided' }}</span></li>
+            <li><strong>Village:</strong><span>{{ village or 'Not Provided' }}</span></li>
+            <li><strong>Age:</strong><span>{{ age or 'Not Provided' }}</span></li>
+            <li><strong>Gender:</strong><span>{{ gender or 'Not Provided' }}</span></li>
+            <li><strong>Suspected Disease:</strong><span>{{ disease or 'Not Provided' }}</span></li>
+            <li><strong>Symptoms:</strong><span>{{ symptoms | join(', ') if symptoms else 'None' }}</span></li>
+            <li><strong>Notes:</strong><span>{{ notes or 'Not Provided' }}</span></li>
+            <li><strong>Uploaded File:</strong><span>{{ filename }}</span></li>
+        </ul>
+
+        <div class="actions">
+            <a href="/">Submit Another Report</a>
+            <a href="/dashboard">View Full Dashboard</a>
+            
+        </div>
+    </div>
+</body>
+</html>
