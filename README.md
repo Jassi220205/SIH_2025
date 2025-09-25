@@ -38,10 +38,12 @@ Key components:
 
 * **Mobile App:** For data collection, community reporting, and awareness campaigns.
 * **AI/ML Engine:** Detects outbreak patterns using health and environmental data.
-* **Sensor Integration:** Low-cost IoT water quality sensors or manual test kits.
-* **Alert System:** Real-time notifications for district health authorities and community leaders.
+* **Alert System:** Real-time notifications via emails for district health authorities and community leaders.
 * **Dashboards:** Visualize hotspots, resource allocation, and health interventions.
 * **Offline + Multilingual Support:** Works in tribal languages and low-connectivity regions.
+
+
+## Site available at http://127.0.0.1:5000
 
 
 ##  Team Members
