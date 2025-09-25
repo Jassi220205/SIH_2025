@@ -43,7 +43,7 @@ Key components:
 * **Offline + Multilingual Support:** Works in tribal languages and low-connectivity regions.
 
 
-## Site available at http://127.0.0.1:5000
+## Site available at localhost
 
 
 ##  Team Members
