@@ -48,7 +48,7 @@ Key components:
 
 ##  Team Members
 
-* **Sree Harsha Chilukuri** – Team Lead, Backend Development (2nd Year, CSE-Core)
+* **Sree Harsha Chilukuri** – Team Lead, Backend Development (3rd Year, CSE-Core)
 * **Jassmitha Jammu** – Dataset Creation, AI Model for Prediction (3rd Year, CSE-AIML)
 * **Jaabily Srilekha** – Complete Figma Design & Documentation (3rd Year, CSE-Core)
 
